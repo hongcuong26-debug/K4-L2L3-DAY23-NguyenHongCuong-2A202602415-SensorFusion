@@ -4,10 +4,10 @@
 
 ## Thông tin học viên
 
-- Họ tên:
+- Họ tên: Nguyễn Hồng Cường
 - MSSV:
 - Email:
-- Link repo (fork):
+- Link repo (fork): https://github.com/hongcuong26-debug/K4-Track4-Day23-Sensor-Fusion-Student (chưa đúng tên nộp)
 - Commit hash nộp (`git rev-parse HEAD`):
 
 ## Tóm tắt kết quả
@@ -57,9 +57,9 @@ Liệt kê phần bonus đã làm, file bằng chứng trong `student/bonus/` v�
 
 Ghi rõ, kể cả khi không dùng ("Không dùng AI"). Xem [RULES.md](../RULES.md) mục 2.
 
-- Công cụ đã dùng (ChatGPT, Copilot, Claude, …):
-- Dùng cho phần nào (hàm, câu hỏi, debug):
-- Cách bạn đã kiểm tra lại (pytest, chạy Waymo, đối chiếu công thức):
+- Công cụ đã dùng (ChatGPT, Copilot, Claude, …): ChatGPT/Codex và Superpowers.
+- Dùng cho phần nào (hàm, câu hỏi, debug): Plan triển khai; Codex đọc đặc tả và thực hiện Part E–H tuần tự theo skill executing-plans. Cập nhật bằng chứng sau từng checkpoint.
+- Cách bạn đã kiểm tra lại (pytest, chạy Waymo, đối chiếu công thức): Đang chuẩn bị môi trường để chạy tests nguyên bản; chưa chạy Waymo, chưa có metrics thực nghiệm.
 
 ## Checklist nộp
 
