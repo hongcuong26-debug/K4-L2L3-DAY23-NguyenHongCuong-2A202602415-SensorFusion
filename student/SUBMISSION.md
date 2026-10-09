@@ -10,7 +10,7 @@
 - Họ tên: Nguyễn Hồng Cường
 - MSSV: 2A202602415
 - Email: 26ai.cuongnh2@vinuni.edu.vn
-- Link repo (fork): https://github.com/hongcuong26-debug/K4-Track4-Day23-Sensor-Fusion-Student (chưa đúng tên nộp)
+- Link repo (fork): https://github.com/hongcuong26-debug/K4-L2L3-DAY23-NguyenHongCuong-2A202602415-SensorFusion
 - Commit hash nộp (`git rev-parse HEAD`): Chưa có hash nộp. Hash code CP4: `ab5c82b164f5d5f3cdf439ae6a2405e0488cd596` (chưa có artifacts; hash nộp cuối lấy sau khi CP5–CP6 đạt).
 
 ## Tóm tắt kết quả
