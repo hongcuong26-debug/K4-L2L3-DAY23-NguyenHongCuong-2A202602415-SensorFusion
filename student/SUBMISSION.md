@@ -3,7 +3,7 @@
 > Điền file này rồi commit. Cách nộp: [hướng dẫn nộp](../SUBMISSION.md).
 
 > Trạng thái ngày 10/10/2026: Part E–H đã kiểm thử; CP5–CP6 chưa hoàn tất.
-> Thiếu dữ liệu/weights. Học viên đã xác nhận MSSV và cung cấp email trong phiên.
+> Thiếu segment Waymo; weights đã tải và kiểm tra nạp model thành công. Học viên đã xác nhận MSSV và cung cấp email trong phiên.
 
 ## Thông tin học viên
 
@@ -25,10 +25,16 @@
 `coverage = matches/detection.tp`; delta RMSE = fused − lidar.
 Chưa có dữ liệu để tính các đại lượng này. Không thay bằng 0 hoặc số từ tests.
 
-Blocker CP5: chưa có hai file local:
+Blocker CP5: chưa có file segment local:
 
 - `data/Waymo/training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord`
-- `data/weights/pretrained_fpn-resnet/fpn_resnet_18_epoch_300.pth`
+
+Weights `data/weights/pretrained_fpn-resnet/fpn_resnet_18_epoch_300.pth` đã tải từ
+Drive Day23-Fusion (50.984.463 bytes, đúng metadata) và nạp state_dict thành công
+qua `detection_pipeline.create_fpn_model`, model ở eval mode; file được git ignore.
+Segment chuẩn có kích thước 985.758.568 bytes. Connector Drive trả HTTP 413
+vì vượt giới hạn 268.435.456 bytes; tải trực tiếp bằng gdown bị Google Drive
+từ chối do quá nhiều lượt xem/tải gần đây. Chưa có lần chạy Waymo nào.
 
 Cần cung cấp file hoặc đường dẫn tương đương trong `student/config/paths.yaml`.
 Sau khi có dữ liệu, chạy full compare sau code cuối, xác minh sáu artifacts,
@@ -120,9 +126,9 @@ Liệt kê phần bonus đã làm, file bằng chứng trong `student/bonus/` v�
 
 Ghi rõ, kể cả khi không dùng ("Không dùng AI"). Xem [RULES.md](../RULES.md) mục 2.
 
-- Công cụ đã dùng (ChatGPT, Copilot, Claude, …): ChatGPT/Codex và Superpowers.
+- Công cụ đã dùng (ChatGPT, Copilot, Claude, …): ChatGPT/Codex, Superpowers và Google Drive connector.
 - Dùng cho phần nào (hàm, câu hỏi, debug): ChatGPT/Superpowers giúp lập plan; Codex/Superpowers executing-plans triển khai 17 hàm Part E–H, xử lý môi trường UTF-8, viết probes ngoài repo và phần giải thích/báo cáo trạng thái. Một agent tuần tự, self-review toàn diff; không có reviewer độc lập.
-- Cách bạn đã kiểm tra lại (pytest, chạy Waymo, đối chiếu công thức): Codex chạy tests nguyên bản trước/sau từng Part, suite cuối 128 passed; bốn probes ngoài repo đạt; đối chiếu công thức EKF, gate, FOV và lifecycle. Chưa chạy full Waymo/validator artifacts vì thiếu dữ liệu/weights. Học viên cần tự đọc, kiểm tra và giải thích mọi dòng trước khi nộp.
+- Cách bạn đã kiểm tra lại (pytest, chạy Waymo, đối chiếu công thức): Codex chạy tests nguyên bản trước/sau từng Part, suite cuối 128 passed; bốn probes ngoài repo đạt; đối chiếu công thức EKF, gate, FOV và lifecycle. Weights thật đã nạp thành công qua API detector gốc. Chưa chạy full Waymo/validator artifacts vì thiếu segment. Học viên cần tự đọc, kiểm tra và giải thích mọi dòng trước khi nộp.
 
 ## Checklist nộp
 
