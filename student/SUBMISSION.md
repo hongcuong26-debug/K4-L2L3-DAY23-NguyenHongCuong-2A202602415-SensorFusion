@@ -3,13 +3,13 @@
 > Điền file này rồi commit. Cách nộp: [hướng dẫn nộp](../SUBMISSION.md).
 
 > Trạng thái ngày 10/10/2026: Part E–H đã kiểm thử; CP5–CP6 chưa hoàn tất.
-> Thiếu dữ liệu/weights, MSSV chưa được xác nhận trong phiên và chưa có email học viên được cung cấp.
+> Thiếu dữ liệu/weights. Học viên đã xác nhận MSSV và cung cấp email trong phiên.
 
 ## Thông tin học viên
 
 - Họ tên: Nguyễn Hồng Cường
-- MSSV:
-- Email:
+- MSSV: 2A202602415
+- Email: 26ai.cuongnh2@vinuni.edu.vn
 - Link repo (fork): https://github.com/hongcuong26-debug/K4-Track4-Day23-Sensor-Fusion-Student (chưa đúng tên nộp)
 - Commit hash nộp (`git rev-parse HEAD`): Chưa có hash nộp. Hash code CP4: `ab5c82b164f5d5f3cdf439ae6a2405e0488cd596` (chưa có artifacts; hash nộp cuối lấy sau khi CP5–CP6 đạt).
 
