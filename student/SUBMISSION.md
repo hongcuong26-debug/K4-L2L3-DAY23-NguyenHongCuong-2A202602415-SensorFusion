@@ -1,9 +1,7 @@
 # Báo cáo bài nộp — Day 23 Sensor Fusion Lab
 
-> Điền file này rồi commit. Cách nộp: [hướng dẫn nộp](../SUBMISSION.md).
-
-> Trạng thái ngày 10/10/2026: Part E–H đã kiểm thử, full compare đã chạy xong,
-> sáu artifacts đã kiểm tra và commit. Việc nộp VLearn do học viên thực hiện.
+Part E–H đã hoàn thành và kiểm thử. Báo cáo sử dụng số liệu từ lần chạy
+Waymo `compare --seed 0`, frame 0–198, sau lần sửa code cuối cùng.
 
 ## Thông tin học viên
 
@@ -11,7 +9,8 @@
 - MSSV: 2A202602415
 - Email: 26ai.cuongnh2@vinuni.edu.vn
 - Link repo (fork): https://github.com/hongcuong26-debug/K4-L2L3-DAY23-NguyenHongCuong-2A202602415-SensorFusion
-- Commit hash nộp (`git rev-parse HEAD`): `c17bfca2252581ba20dbfa4b1ed58edae2f0f3dd` — hash code + artifacts CP5; hash nộp cuối lấy sau CP6 bằng `git rev-parse HEAD`, không dùng hash CP5 này để thay cho commit báo cáo cuối.
+- Commit code + artifacts CP5: `c17bfca2252581ba20dbfa4b1ed58edae2f0f3dd`.
+- Commit hash nộp (`git rev-parse HEAD`): dùng hash commit cuối chứa báo cáo này, lấy sau khi commit và push; hash đó được nộp cùng URL fork trên VLearn.
 
 ## Tóm tắt kết quả
 
@@ -61,17 +60,13 @@ và hai mode; có đúng 398 records tổng/199 mỗi mode, mỗi `(mode,frame)`
 đủ frame 0–198, detection từng frame giống nhau giữa modes. Mọi count/SSE,
 RMSE và trung bình tái tạo khớp metrics; không sửa tay artifacts.
 
-Preflight: segment local 985.758.568 bytes, reader đọc được 199 frames;
-weights local 50.984.463 bytes nạp state_dict thành công qua
-`detection_pipeline.create_fpn_model` ở eval mode. Dữ liệu/weights được git ignore.
-
-Bằng chứng kiểm thử local: Python 3.12.14; tests gốc `student/tests` đạt
+Môi trường kiểm thử: Python 3.12.14; tests gốc `student/tests` đạt
 128 passed, 0 failed/xfailed (530 warnings về np.matrix và input nonfinite).
 Probes ngoài repo đạt: params/zero override, ndarray/matrix, camera depth/FOV/extrinsic,
 association empty/all-inf và covariance khởi tạo xoay bất đẳng hướng.
 Trên Windows chạy với `$env:PYTHONUTF8="1"` để fixtures tiếng Việt dùng UTF-8.
 
-Chạy từ root repo:
+Lệnh đã chạy từ root repo, với weights pretrained được nạp vào model eval:
 
 ```bash
 fusion-run-lab --config student/config/paths.yaml --fusion compare --seed 0
@@ -82,14 +77,7 @@ một-một với GT xe trong cửa sổ BEV, gate XY **2.0 m**; `null` nếu kh
 Camera dùng tâm hộp 2D ground-truth FRONT có nhiễu seeded, **không** dùng camera
 detector. Kết quả này không đo hiệu quả một perception system độc lập với GT.
 
-`grade_run.log` là JSONL, mỗi `(mode,frame)` đúng một record với các trường:
-`mode`, `frame`, `det_tp`, `det_fp`, `det_fn`, `valid_gt`, `confirmed`, `matches`,
-`sum_sq_err`, `ghosts`, `misses`. Đảm bảo `matches+ghosts==confirmed` và
-`matches+misses==valid_gt`; tổng/trung bình record phải khớp `metrics.json`.
-File per-mode `metrics_lidar.json`, `metrics_fused.json`, `grade_run_lidar.log`,
-`grade_run_fused.log` được giữ để đối chiếu.
-
-## Giải thích ngắn (Parts E–H — tự viết)
+## Giải thích kỹ thuật Parts E–H
 
 1. Khác biệt đo lidar 3D và camera 2D trong EKF (`z`, `R`)?
 
@@ -143,20 +131,15 @@ File per-mode `metrics_lidar.json`, `metrics_fused.json`, `grade_run_lidar.log`,
    Init đổi position/covariance LiDAR sang vehicle; velocity zero với covariance
    diag(sigma_p44²,sigma_p55²,sigma_p66²). Tests gốc và probe xoay kiểm các quy tắc này.
 
-## Bonus (không bắt buộc)
+## Bonus
 
-Liệt kê phần bonus đã làm, file bằng chứng trong `student/bonus/` và kết quả chính
-(xem [RUBRIC.md](../RUBRIC.md) mục 2). Không làm thì ghi "Không".
+Không thực hiện bonus.
 
-- Không.
-
-## Khai báo sử dụng AI (bắt buộc)
-
-Ghi rõ, kể cả khi không dùng ("Không dùng AI"). Xem [RULES.md](../RULES.md) mục 2.
+## Khai báo sử dụng AI
 
 - Công cụ đã dùng (ChatGPT, Copilot, Claude, …): ChatGPT/Codex, Superpowers và Google Drive connector.
 - Dùng cho phần nào (hàm, câu hỏi, debug): ChatGPT/Superpowers giúp lập plan; Codex/Superpowers executing-plans triển khai 17 hàm Part E–H, xử lý môi trường UTF-8, viết probes ngoài repo, chạy Waymo/validator và hỗ trợ sáu câu giải thích cùng báo cáo từ metrics/log thật. Google Drive connector tìm nguồn lớp và tải weights; học viên bổ sung segment local. Một agent tuần tự, self-review toàn diff; không có reviewer độc lập.
-- Cách bạn đã kiểm tra lại (pytest, chạy Waymo, đối chiếu công thức): Codex chạy tests nguyên bản trước/sau từng Part, suite cuối 128 passed; bốn probes ngoài repo đạt; đối chiếu công thức EKF, gate, FOV và lifecycle. Full Waymo compare seed 0/frame 0–198 exit 0; validator kiểm sáu artifacts và 398 records đạt. Học viên cần tự đọc, kiểm tra và giải thích mọi dòng trước khi nộp.
+- Cách bạn đã kiểm tra lại (pytest, chạy Waymo, đối chiếu công thức): Codex chạy tests nguyên bản trước/sau từng Part, suite cuối 128 passed; bốn probes ngoài repo đạt; đối chiếu công thức EKF, gate, FOV và lifecycle. Full Waymo compare seed 0/frame 0–198 exit 0; validator kiểm sáu artifacts và 398 records đạt. Checker sau commit báo `KẾT QUẢ: SẴN SÀNG NỘP`. Học viên chịu trách nhiệm đọc, kiểm tra và giải thích code/câu trả lời khi vấn đáp.
 
 ## Checklist nộp
 
@@ -167,4 +150,5 @@ Ghi rõ, kể cả khi không dùng ("Không dùng AI"). Xem [RULES.md](../RULES
 - [x] Đã điền đủ file này, gồm khai báo AI
 - [x] Không commit dữ liệu Waymo, weights, `paths.yaml`, API key
 - [x] `python tools/check_submission.py` báo `KẾT QUẢ: SẴN SÀNG NỘP` sau commit báo cáo
-- [ ] Đã push và nộp link repo + commit hash trên LMS ([hướng dẫn nộp](../SUBMISSION.md))
+- [x] Fork Public đúng tên; code và sáu artifacts đã push lên `main`
+- [ ] Học viên nộp URL fork + hash commit cuối 40 ký tự trên VLearn ([hướng dẫn nộp](../SUBMISSION.md))
